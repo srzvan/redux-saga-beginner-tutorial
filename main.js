@@ -7,13 +7,13 @@ import createSagaMiddleware from 'redux-saga';
 
 import Counter from './Counter';
 import reducer from './reducers';
-import { helloWorld } from './sagas';
+import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 
-sagaMiddleware.run(helloWorld);
+sagaMiddleware.run(rootSaga);
 
 const action = (type) => store.dispatch({ type });
 
@@ -23,6 +23,7 @@ function render() {
       value={store.getState()}
       onIncrement={() => action('INCREMENT')}
       onDecrement={() => action('DECREMENT')}
+      onIncrementAsync={() => action('INCREMENT_ASYNC')}
     />,
     document.getElementById('root')
   );
